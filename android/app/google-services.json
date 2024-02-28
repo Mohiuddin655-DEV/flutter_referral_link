@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "119871886959",
+    "firebase_url": "https://dynamic-link-bd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "dynamic-link-bd",
+    "storage_bucket": "dynamic-link-bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119871886959:android:9a364a22be044bd4c95f9a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_dynamic_link"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeX5cqzcZZgM_Zs6O417iTrIOK8w6mQeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119871886959:android:24cf5a046db657cdc95f9a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_referral_link"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeX5cqzcZZgM_Zs6O417iTrIOK8w6mQeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
