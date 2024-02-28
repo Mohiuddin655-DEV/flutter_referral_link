@@ -14,8 +14,9 @@ class FirebaseDynamicLinksService {
         "https://flutterreferrallink.page.link.com/referral?code=$code",
       ),
       uriPrefix: "https://flutterreferrallink.page.link",
-      androidParameters: const AndroidParameters(
+      androidParameters:  AndroidParameters(
         packageName: "com.example.flutter_referral_link",
+        fallbackUrl: Uri.parse("https://dynamic-link-bd.web.app/"),
       ),
       iosParameters: const IOSParameters(
         bundleId: "com.example.flutterReferralLink",

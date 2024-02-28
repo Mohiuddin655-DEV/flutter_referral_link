@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
             GestureDetector(
               onTap: () {
                 FirebaseDynamicLinksService.i
-                    .createDynamicLink("123456")
+                    .createDynamicLink("112233")
                     .then((i) {
                   setState(() {
                     url = i.toString();
