@@ -12,7 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String url= "";
+  String url = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,9 +64,11 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 24),
             GestureDetector(
               onTap: () {
-                FirebaseDynamicLinksService.i.createDynamicLink().then((value) {
+                FirebaseDynamicLinksService.i
+                    .createDynamicLink("123456")
+                    .then((i) {
                   setState(() {
-                    url = value.toString();
+                    url = i.toString();
                   });
                 });
               },

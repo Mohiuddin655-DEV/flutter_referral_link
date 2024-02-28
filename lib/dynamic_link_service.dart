@@ -8,16 +8,21 @@ class FirebaseDynamicLinksService {
     return _i ??= FirebaseDynamicLinksService();
   }
 
-  Future<Uri> createDynamicLink() async {
+  Future<Uri> createDynamicLink(String code) async {
     final params = DynamicLinkParameters(
-      link: Uri.parse("https://flutterreferrallink.page.link.com"),
+      link: Uri.parse(
+        "https://flutterreferrallink.page.link.com/referral?code=$code",
+      ),
       uriPrefix: "https://flutterreferrallink.page.link",
-      androidParameters:
-          const AndroidParameters(packageName: "com.example.flutter_referral_link"),
-      iosParameters: const IOSParameters(bundleId: "com.example.flutterReferralLink"),
+      androidParameters: const AndroidParameters(
+        packageName: "com.example.flutter_referral_link",
+      ),
+      iosParameters: const IOSParameters(
+        bundleId: "com.example.flutterReferralLink",
+      ),
     );
-    final dynamicLink = await FirebaseDynamicLinks.instance.buildShortLink(params);
-    debugPrint(dynamicLink.previewLink.toString());
-    return dynamicLink.shortUrl;
+    final link = await FirebaseDynamicLinks.instance.buildShortLink(params);
+    debugPrint(link.shortUrl.toString());
+    return link.shortUrl;
   }
 }
