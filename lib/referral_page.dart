@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class DetailsPage extends StatelessWidget {
+class ReferralDetailsPage extends StatelessWidget {
   final String? path;
   final String? data;
 
-  const DetailsPage({
+  const ReferralDetailsPage({
     super.key,
     this.path,
     this.data,
@@ -17,7 +17,7 @@ class DetailsPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          "Details",
+          "Referral Details",
           style: TextStyle(
             fontSize: 20,
             color: Colors.white,
@@ -33,15 +33,7 @@ class DetailsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () => context.goNamed(
-              'sub_details',
-              extra: "I'm sub contents!",
-              pathParameters: {
-                "sq": "products",
-                "page": "1",
-              },
-              queryParameters: {"orderBy": "name", "queryBy": "price"},
-            ),
+            onTap: () => context.pop('data'),
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
@@ -52,7 +44,7 @@ class DetailsPage extends StatelessWidget {
                 vertical: 12,
               ),
               child: const Text(
-                "Go Sub Details",
+                "Back",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

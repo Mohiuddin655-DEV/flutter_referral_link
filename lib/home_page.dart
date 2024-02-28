@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'routes.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -20,9 +22,12 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
         child: GestureDetector(
-          onTap: () => context.go(
-            '/details',
-            extra: "Hi, I'm Omie...!",
+          onTap: () => context.goNamed(
+            kReferral,
+            extra: "I'm sub contents!",
+            queryParameters: {
+              kReferralCode: "123456",
+            },
           ),
           child: Container(
             decoration: BoxDecoration(
@@ -34,7 +39,7 @@ class HomePage extends StatelessWidget {
               vertical: 12,
             ),
             child: const Text(
-              "Go Details",
+              "Referral",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

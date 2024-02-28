@@ -1,38 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'details_page.dart';
 import 'home_page.dart';
-import 'inner_details_page.dart';
+import 'referral_page.dart';
+import 'routes.dart';
 
 GoRouter router = GoRouter(
   errorBuilder: (context, state) => const ErrorScreen(),
   routes: <RouteBase>[
     GoRoute(
-      path: '/',
+      path: kHome,
       builder: (context, state) {
         return const HomePage();
       },
       routes: <RouteBase>[
         GoRoute(
-          path: 'details',
+          name: kReferral,
+          path: kReferral,
           builder: (context, state) {
             var data = state.extra;
-            var path = state.uri.toString();
-            return DetailsPage(
-              path: path,
-              data: data is String ? data : "",
-            );
-          },
-        ),
-        GoRoute(
-          name: "sub_details",
-          path: 'sub_details/:page/:sq',
-          builder: (context, state) {
-            var data = state.extra;
-            var path = state.uri.toString();
-            return SubDetailsPage(
-              path: path,
+            var path = state.uri;
+            final uriData = path.query;
+            return ReferralDetailsPage(
+              path: uriData.toString(),
               data: data is String ? data : "",
             );
           },
