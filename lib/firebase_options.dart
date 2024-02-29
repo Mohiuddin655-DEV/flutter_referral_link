@@ -49,7 +49,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '119871886959',
     projectId: 'dynamic-link-bd',
     authDomain: 'dynamic-link-bd.firebaseapp.com',
-    databaseURL: 'https://dynamic-link-bd-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://dynamic-link-bd-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'dynamic-link-bd.appspot.com',
     measurementId: 'G-E3GSHBTG6Z',
   );
@@ -59,7 +60,8 @@ class DefaultFirebaseOptions {
     appId: '1:119871886959:android:24cf5a046db657cdc95f9a',
     messagingSenderId: '119871886959',
     projectId: 'dynamic-link-bd',
-    databaseURL: 'https://dynamic-link-bd-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://dynamic-link-bd-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'dynamic-link-bd.appspot.com',
   );
 
@@ -68,7 +70,8 @@ class DefaultFirebaseOptions {
     appId: '1:119871886959:ios:cd871db9a95fc666c95f9a',
     messagingSenderId: '119871886959',
     projectId: 'dynamic-link-bd',
-    databaseURL: 'https://dynamic-link-bd-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://dynamic-link-bd-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'dynamic-link-bd.appspot.com',
     iosBundleId: 'com.example.flutterReferralLink',
   );
@@ -78,7 +81,8 @@ class DefaultFirebaseOptions {
     appId: '1:119871886959:ios:c3cff309a006b198c95f9a',
     messagingSenderId: '119871886959',
     projectId: 'dynamic-link-bd',
-    databaseURL: 'https://dynamic-link-bd-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://dynamic-link-bd-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'dynamic-link-bd.appspot.com',
     iosBundleId: 'com.example.flutterReferralLink.RunnerTests',
   );

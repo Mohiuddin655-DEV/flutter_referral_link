@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import 'home_page.dart';
 import 'referral_page.dart';
-import 'referral_service.dart';
 import 'routes.dart';
 
 GoRouter router = GoRouter(

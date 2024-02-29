@@ -9,7 +9,35 @@ import 'package:url_strategy/url_strategy.dart';
 const _kReferralLinksField = "referral_links";
 const _kReferralLinkField = "referral_link";
 const _kReferralIpField = "referral_ip";
-const _kReferredIdField = "referrer_id";
+const _kReferralIdField = "referral_id";
+const _kReferralTypeField = "referral_type";
+
+class ReferralInfo {
+  final String? id;
+  final String? ip;
+  final String? link;
+  final int? type;
+
+  const ReferralInfo._({
+    required this.id,
+    required this.ip,
+    required this.link,
+    required this.type,
+  });
+
+  factory ReferralInfo.from(Map<String, dynamic>? source) {
+    final id = source?[_kReferralIdField];
+    final ip = source?[_kReferralIpField];
+    final link = source?[_kReferralLinkField];
+    final type = source?[_kReferralTypeField];
+    return ReferralInfo._(
+      id: id is String ? id : null,
+      ip: ip is String ? ip : null,
+      link: link is String ? link : null,
+      type: type is int ? type : null,
+    );
+  }
+}
 
 class ReferralLinkService {
   final String baseUrl;
@@ -58,9 +86,7 @@ class ReferralLinkService {
 
   String _link(String id) => "$baseUrl/$endPoint?$queryField=$id";
 
-  String? getCode(Map<String, String> params) => params[queryField];
-
-  String? getCodeFromPath(String path) {
+  String? _code(String path) {
     final uri = Uri.tryParse(_path(path));
     if (uri != null &&
         uri.pathSegments.isNotEmpty &&
@@ -72,58 +98,62 @@ class ReferralLinkService {
     }
   }
 
-  Future<String?> getCodeFromLink(String link) async {
-    final query = await _firestore
-        .collection(_kReferralLinksField)
-        .where(_kReferralLinkField, isEqualTo: link)
-        .get();
-
-    if (query.docs.isNotEmpty) {
-      return query.docs.first.id;
-    } else {
-      return null;
-    }
-  }
-
-  Future<String> getLink(String id) {
+  Future<String> getLink(String id, [int type = 1]) {
     final link = _link(id);
     return _firestore.collection(_kReferralLinksField).doc(id).set(
       {
-        _kReferredIdField: id,
+        _kReferralIdField: id,
         _kReferralLinkField: link,
+        _kReferralTypeField: type,
       },
       SetOptions(merge: true),
     ).then((_) => link);
   }
 
-  Future<Map<String, dynamic>?> getInfo(String id) async {
+  Future<ReferralInfo?> getInfoFromId(String id) async {
     return _firestore
         .collection(_kReferralLinksField)
         .doc(id)
         .get()
         .then((value) {
       if (value.exists) {
-        return value.data();
+        final data = value.data();
+        if (data != null) {
+          return ReferralInfo.from(data);
+        } else {
+          return null;
+        }
       } else {
         return null;
       }
     });
   }
 
-  Future<bool> isReferredIP(String ip) async {
-    final query = await _firestore
+  Future<ReferralInfo?> getInfoFromIP(String ip) async {
+    return _firestore
         .collection(_kReferralLinksField)
         .where(_kReferralIpField, isEqualTo: ip)
-        .get();
-    return query.docs.isNotEmpty;
+        .get()
+        .then((value) {
+      if (value.docs.isNotEmpty) {
+        final data = value.docs.firstOrNull?.data();
+        if (data != null) {
+          return ReferralInfo.from(data);
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    });
+  }
+
+  Future<bool> isReferredIP(String ip) {
+    return getInfoFromIP(ip).then((i) => i != null);
   }
 
   Future<bool> isReferredId(String id) async {
-    final query = await _firestore
-        .collection(_kReferralLinksField)
-        .where(_kReferredIdField, isEqualTo: id)
-        .get();
-    return query.docs.isNotEmpty;
+    return getInfoFromId(id).then((value) => value != null);
   }
 
   Future<void> storeIP({required String id, required String ip}) async {
@@ -159,21 +189,21 @@ class ReferralLinkService {
   }
 
   void executeByParams(Map<String, String> params) {
-    final value = getCode(params);
+    final value = params[queryField];
     if (value != null && value.isNotEmpty) {
       execute(value);
     }
   }
 
   void executeByUri(Uri uri) {
-    final value = getCode(uri.queryParameters);
+    final value = uri.queryParameters[queryField];
     if (value != null && value.isNotEmpty) {
       execute(value);
     }
   }
 
   void executeByPath(String path) {
-    final value = getCodeFromPath(path);
+    final value = _code(path);
     if (value != null && value.isNotEmpty) {
       execute(value);
     }
