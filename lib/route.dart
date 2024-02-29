@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'home_page.dart';
 import 'referral_page.dart';
+import 'referral_service.dart';
 import 'routes.dart';
 
 GoRouter router = GoRouter(
@@ -19,10 +20,8 @@ GoRouter router = GoRouter(
           path: kReferral,
           builder: (context, state) {
             var data = state.extra;
-            var path = state.uri;
-            final uriData = path.query;
             return ReferralDetailsPage(
-              path: uriData.toString(),
+              uri: state.uri,
               data: data is String ? data : "",
             );
           },

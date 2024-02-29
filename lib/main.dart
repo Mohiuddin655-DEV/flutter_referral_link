@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_referral_link/referral_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'firebase_options.dart';
 import 'route.dart';
@@ -10,28 +9,9 @@ import 'route.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  // Check if you received the link via `getInitialLink` first
-  final PendingDynamicLinkData? initialLink =
-      await FirebaseDynamicLinks.instance.getInitialLink();
-
-  if (initialLink != null) {
-    final Uri deepLink = initialLink.link;
-    // Example of using the dynamic link to push the user to a different screen
-    // Navigator.pushNamed(context, deepLink.path);
-    log("INITIAL DEEP LICK : $deepLink");
-  }
-
-  FirebaseDynamicLinks.instance.onLink.listen(
-    (pendingDynamicLinkData) {
-      // Set up the `onLink` event listener next as it may be received here
-      final deepLink = pendingDynamicLinkData.link;
-      // Example of using the dynamic link to push the user to a different screen
-      // Navigator.pushNamed(context, deepLink.path);
-      log("DYNAMIC DEEP LICK : $deepLink");
-    },
+  ReferralLinkService.init(
+    playStoreLink: "https://play.google.com/store/apps/details?id=com.pranayama.android",
   );
-
   runApp(const Application());
 }
 

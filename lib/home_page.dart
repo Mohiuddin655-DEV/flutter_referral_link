@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_referral_link/dynamic_link_service.dart';
 import 'package:go_router/go_router.dart';
 
+import 'referral_service.dart';
 import 'routes.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +13,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String url = "";
+
+  final service = ReferralLinkService.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +66,8 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 24),
             GestureDetector(
               onTap: () {
-                FirebaseDynamicLinksService.i
-                    .createDynamicLink("112233")
-                    .then((i) {
-                  setState(() {
-                    url = i.toString();
-                  });
+                ReferralLinkService.instance?.getLink("123456").then((value) {
+                  setState(() => url = value);
                 });
               },
               child: Container(

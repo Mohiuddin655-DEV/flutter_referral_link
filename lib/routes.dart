@@ -1,4 +1,4 @@
 const kHome = "/";
 const kReferral = "referral";
-const kReferralCode = "code";
+const kReferralCode = "ref";
 const kReferralPath = "$kReferral/:$kReferralCode";
