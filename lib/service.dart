@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_ip_address/get_ip_address.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 const kUsers = "users";
 const kReferrals = "referrals";
@@ -37,12 +38,16 @@ class ReferralService {
   static ReferralService? _i;
 
   static ReferralService init({
-    String baseUrl = "https://dynamic-link-bd.web.app",
+    bool resolveUrlStrategy = false,
+    String baseUrl = "https://dynamic-link-bd.web.app/#",
     String endPoint = "referral",
     String queryField = "ref",
     String? appstoreLink,
     String? playStoreLink,
   }) {
+    if (resolveUrlStrategy) {
+      setPathUrlStrategy();
+    }
     return _i ??= ReferralService._(
       baseUrl: baseUrl,
       endPoint: endPoint,

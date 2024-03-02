@@ -9,6 +9,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   ReferralService.init(
+    resolveUrlStrategy: true,
     playStoreLink:
         "https://play.google.com/store/apps/details?id=com.pranayama.android",
   );
