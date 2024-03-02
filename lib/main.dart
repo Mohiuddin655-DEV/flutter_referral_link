@@ -1,14 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_referral_link/referral_service.dart';
 
 import 'firebase_options.dart';
 import 'route.dart';
+import 'service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  ReferralLinkService.init(
+  ReferralService.init(
     playStoreLink:
         "https://play.google.com/store/apps/details?id=com.pranayama.android",
   );

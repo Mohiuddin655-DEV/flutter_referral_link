@@ -1,14 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_referral_link/referral_service.dart';
 import 'package:go_router/go_router.dart';
 
+import 'service.dart';
+
 class ReferralDetailsPage extends StatefulWidget {
-  final Uri? uri;
+  final String? path;
   final String? data;
 
   const ReferralDetailsPage({
     super.key,
-    this.uri,
+    this.path,
     this.data,
   });
 
@@ -20,8 +23,9 @@ class _ReferralDetailsPageState extends State<ReferralDetailsPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.uri != null) {
-      ReferralLinkService.instance?.executeByUri(widget.uri!);
+    log(widget.path ?? "");
+    if (widget.path != null) {
+      ReferralService.i.storeIpByPath(widget.path!);
     }
   }
 
@@ -90,7 +94,7 @@ class _ReferralDetailsPageState extends State<ReferralDetailsPage> {
                   height: 16,
                 ),
                 Text(
-                  widget.uri.toString(),
+                  widget.path.toString(),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 16,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-import 'referral_service.dart';
-import 'routes.dart';
+import 'service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,9 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String url = "";
-
-  final service = ReferralLinkService.instance;
+  final etField = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,61 +30,60 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             TextField(
-              controller: TextEditingController(text: url),
+              controller: etField,
             ),
             const SizedBox(height: 24),
-            GestureDetector(
-              onTap: () => context.goNamed(
-                kReferral,
-                extra: "I'm sub contents!",
-                queryParameters: {
-                  kReferralCode: "123456",
-                },
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
-                ),
-                child: const Text(
-                  "Referral",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            GestureDetector(
-              onTap: () {
-                ReferralLinkService.instance?.getLink("123456").then((value) {
-                  setState(() => url = value);
-                });
+            XButton(
+              text: "Redeem",
+              onClick: () {
+                ReferralService.i.redeemIP("user_2");
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
-                ),
-                child: const Text(
-                  "Generate link",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            ),
+            const SizedBox(height: 24),
+            XButton(
+              text: "Refer",
+              onClick: () {
+                ReferralService.i
+                    .referCode("user_1")
+                    .then((v) => setState(() => etField.text = v));
+              },
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class XButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onClick;
+
+  const XButton({
+    super.key,
+    required this.text,
+    required this.onClick,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onClick,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 12,
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

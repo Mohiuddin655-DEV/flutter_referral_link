@@ -20,7 +20,7 @@ GoRouter router = GoRouter(
           builder: (context, state) {
             var data = state.extra;
             return ReferralDetailsPage(
-              uri: state.uri,
+              path: state.uri.toString(),
               data: data is String ? data : "",
             );
           },
