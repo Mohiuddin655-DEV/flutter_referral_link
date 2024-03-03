@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'service.dart';
+import '../services/referral_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,28 +24,61 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
       ),
       body: Center(
         child: Column(
           children: [
-            TextField(
-              controller: etField,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: TextField(
+                controller: etField,
+                decoration: const InputDecoration(
+                  hintText: "LINK",
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            XButton(
+              text: "Plan 1",
+              onClick: () {
+                ReferralService.i
+                    .generateCode(uid: "user_1", plan: 1)
+                    .then((v) => setState(() => etField.text = v));
+              },
+            ),
+            const SizedBox(height: 24),
+            XButton(
+              text: "Plan 2",
+              onClick: () {
+                ReferralService.i
+                    .generateCode(uid: "user_1", plan: 2)
+                    .then((v) => setState(() => etField.text = v));
+              },
+            ),
+            const SizedBox(height: 24),
+            XButton(
+              text: "Plan 3",
+              onClick: () {
+                ReferralService.i
+                    .generateCode(uid: "user_1", plan: 3)
+                    .then((v) => setState(() => etField.text = v));
+              },
+            ),
+            const SizedBox(height: 24),
+            XButton(
+              text: "Store IP",
+              onClick: () {
+                ReferralService.i.storeIpByPath(etField.text);
+              },
             ),
             const SizedBox(height: 24),
             XButton(
               text: "Redeem",
               onClick: () {
-                ReferralService.i.redeemIP("user_2");
-              },
-            ),
-            const SizedBox(height: 24),
-            XButton(
-              text: "Refer",
-              onClick: () {
-                ReferralService.i
-                    .referCode("user_1")
-                    .then((v) => setState(() => etField.text = v));
+                ReferralService.i.redeem("user_2");
               },
             ),
           ],
@@ -71,7 +104,9 @@ class XButton extends StatelessWidget {
       onTap: onClick,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: Theme
+              .of(context)
+              .primaryColor,
           borderRadius: BorderRadius.circular(12),
         ),
         padding: const EdgeInsets.symmetric(

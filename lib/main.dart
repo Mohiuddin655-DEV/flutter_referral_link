@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
 import 'route.dart';
-import 'service.dart';
+import 'services/referral_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   ReferralService.init(
+    baseUrl: "https://dynamic-link-bd.web.app/#",
     resolveUrlStrategy: true,
     playStoreLink:
-        "https://play.google.com/store/apps/details?id=com.pranayama.android",
+    "https://play.google.com/store/apps/details?id=com.pranayama.android",
   );
   runApp(const Application());
 }

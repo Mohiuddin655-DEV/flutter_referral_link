@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'home_page.dart';
-import 'referral_page.dart';
+import 'pages/home_page.dart';
+import 'pages/redirect_page.dart';
 import 'routes.dart';
 
 GoRouter router = GoRouter(
@@ -18,11 +18,7 @@ GoRouter router = GoRouter(
           name: kReferral,
           path: kReferral,
           builder: (context, state) {
-            var data = state.extra;
-            return ReferralDetailsPage(
-              path: state.uri.toString(),
-              data: data is String ? data : "",
-            );
+            return RedirectPage(path: state.uri.toString());
           },
         ),
       ],
@@ -48,7 +44,9 @@ class ErrorScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
       ),
       body: SafeArea(
         child: Center(
