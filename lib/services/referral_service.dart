@@ -350,25 +350,16 @@ enum Rewards {
     }
   }
 
-  int get createdAt =>
-      DateTime
-          .now()
-          .millisecondsSinceEpoch;
+  int get createdAt => DateTime.now().millisecondsSinceEpoch;
 
   int get expireAt {
     final now = DateTime.now();
     if (isX1) {
-      return now
-          .add(Duration(days: x1.duration))
-          .millisecondsSinceEpoch;
+      return now.add(Duration(days: x1.duration)).millisecondsSinceEpoch;
     } else if (isX2) {
-      return now
-          .add(Duration(days: x2.duration))
-          .millisecondsSinceEpoch;
+      return now.add(Duration(days: x2.duration)).millisecondsSinceEpoch;
     } else {
-      return now
-          .add(Duration(days: x3.duration))
-          .millisecondsSinceEpoch;
+      return now.add(Duration(days: x3.duration)).millisecondsSinceEpoch;
     }
   }
 }
@@ -457,10 +448,7 @@ class UserModel {
   final int? rewardExpireAt;
 
   String get noneUid {
-    return id ?? DateTime
-        .timestamp()
-        .millisecondsSinceEpoch
-        .toString();
+    return id ?? DateTime.timestamp().millisecondsSinceEpoch.toString();
   }
 
   bool get isCurrentUid => id == "1706388765933";

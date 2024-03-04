@@ -78,7 +78,9 @@ class _HomePageState extends State<HomePage> {
             XButton(
               text: "Redeem",
               onClick: () {
-                ReferralService.i.redeem("user_2");
+                ReferralService.i.redeem("user_2").then((value) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Successful")));
+                });
               },
             ),
           ],
